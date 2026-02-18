@@ -1,0 +1,28 @@
+<!-- Page d'accueil, tableau et card avec stat general(résumé) du personnage que nous somme (spacemarine), nb de kill, année de vie, groupe auquel on appartient, photo..ect -->
+<div class="home flex flex-col">
+  <div class="mat-card notation">
+    <mat-card>
+      <app-generic-table [data]="userStats" [columns]="[
+    { key: 'id', label: 'ID' },
+    { key: 'amountKill', label: 'Eliminations total' },
+    { key: 'age', label: 'Age' },
+    { key: 'chapter', label: 'Chapitre' }
+  ]" />
+    </mat-card>
+  </div>
+
+
+
+  <div class="mat-card notation">
+    <mat-card>
+      <mat-card-title>Notation</mat-card-title>
+      <h2>Note sur 10 : {{ counter() }}</h2>
+      <p>Equivalent sur 20 : {{ doubleCounter() }}</p>
+
+      <div class="">
+        <button (click)="increment()">Augmenter</button>
+        <button (click)="reset()">Réinitialiser</button>
+      </div>
+    </mat-card>
+  </div>
+</div>

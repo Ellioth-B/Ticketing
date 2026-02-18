@@ -1,0 +1,11 @@
+<table mat-table [dataSource]="data()" class="mat-elevation-z8">
+
+  <!-- Génération dynamique des colonnes -->
+  <ng-container *ngFor="let col of columns" [matColumnDef]="getKeyAsString(col.key)">
+    <th mat-header-cell *matHeaderCellDef class="italic">{{ col.label }}</th>
+    <td mat-cell *matCellDef="let row">{{ row[col.key] }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
