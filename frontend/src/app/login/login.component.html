@@ -1,6 +1,19 @@
-<form (ngSubmit)="connect()">
-  <input type="username" [(ngModel)]="username" name="username" placeholder="Username">
-  <input type="pwd" [(ngModel)]="pwd" name="pwd" placeholder="Mot de passe">
+<div class="login">
+  <form class="login flex flex-row items-start mt-4" (ngSubmit)="connect()">
+    <input class="username mx-2" type="username" [(ngModel)]="username" name="username" placeholder="Username">
 
-  <button type="submit">Connexion</button>
-</form>
+    <input [type]=" showPwd ? 'text' : 'password'" [(ngModel)]="pwd" name="pwd" placeholder="Mot de passe">
+
+    @if (!showPwd) {
+    <div class="eye-icon pt-1.5 w-min cursor-pointer">
+      <mat-icon (click)="showPwd = !showPwd">remove_red_eye</mat-icon>
+    </div>
+    } @else {
+    <div class="eye-icon-slash pt-1.5 w-min cursor-pointer">
+      <mat-icon (click)="showPwd = !showPwd">remove_red_eye</mat-icon>
+    </div>
+    }
+
+    <button class="my-0 mx-2" type="submit">Connexion</button>
+  </form>
+</div>

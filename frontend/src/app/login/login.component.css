@@ -1,0 +1,17 @@
+.eye-icon {
+    border: 1px solid;
+    border-color: #BDBDBD;
+    border-radius: 2px;
+}
+
+.eye-icon-slash {
+    background: linear-gradient(135deg,
+            white 45%,
+            #BDBDBD 45%,
+            #BDBDBD 55%,
+            white 55%);
+
+    border: 1px solid;
+    border-color: #BDBDBD;
+    border-radius: 2px;
+}
