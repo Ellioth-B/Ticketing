@@ -1,0 +1,29 @@
+<div class="task-container">
+  <input
+    [(ngModel)]="newTask"
+    placeholder="Nouvelle tâche"
+  />
+  <button (click)="addTask()">
+    Ajouter
+  </button>
+  <hr />
+  <!-- Liste -->
+  <ul>
+    @for (task of tasks(); track task.libelle; let i = $index) {
+      <li>
+        <input
+          type="checkbox"
+          [checked]="task.estTraitee === '1'"
+          (change)="toggleTask(i)"
+        />
+        <span [style.text-decoration]="task.estTraitee === '1' ? 'line-through' : 'none'">
+          {{ task.libelle }}
+        </span>
+        <!-- Suppression (bonus) -->
+        <button (click)="deleteTask(i)">
+          Supprimer
+        </button>
+      </li>
+    }
+  </ul>
+</div>
