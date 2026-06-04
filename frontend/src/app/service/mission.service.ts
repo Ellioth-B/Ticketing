@@ -18,4 +18,9 @@ export class MissionService {
   postMission(mission: Mission): Observable<Mission> {
     return this.http.post<Mission>(`${this.apiUrl}/mission/postMission`, mission);
   }
+
+  // Supprimer une mission
+  deleteMission(id: number) {
+    return this.http.delete<Mission>(`${this.apiUrl}/mission/deleteMission/${id}`);
+  }
 }

@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { MissionService } from '../service/mission.service';
 import { MatTable, MatTableModule } from "@angular/material/table";
 import { AuthService } from '../service/auth.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-order-mission',
   standalone: true,
-  imports: [MatCardModule, ReactiveFormsModule, CommonModule, MatTable, MatTableModule],
+  imports: [MatCardModule, ReactiveFormsModule, CommonModule, MatTable, MatTableModule, MatIcon],
   templateUrl: './order-mission.component.html',
   styleUrl: './order-mission.component.css'
 })
@@ -27,7 +28,7 @@ export class OrderMissionComponent {
     durationDay: [0],
     description: ['']
   });
-  displayedColumns = ['type', 'projet', 'durationDay', 'description'];
+  displayedColumns = ['type', 'projet', 'durationDay', 'description', 'actions'];
   
   // Service injected
   auth = inject(AuthService)
@@ -62,6 +63,13 @@ export class OrderMissionComponent {
       console.log('❌ Erreur dans le formulaire')
       this.missionForm.markAllAsTouched();
     }
+  }
+
+  // Supprime une mission et update le Signal
+  deleteMission(id: number) {
+    this.missionService.deleteMission(id).subscribe(() => {
+      this.missions.update(missions => missions.filter(m => m.id !== id)) // On garde toutes les missions où l’id est différent de celui que j'ai supprimer
+    });
   }
 
   //TODO : Ouverture d'une pop-up sur la page pour afficher le détail du ticket avec un bouton "Accepter la mission" qui ajoute la mission dans nos mission en cours.
