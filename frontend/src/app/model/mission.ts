@@ -1,7 +1,7 @@
 export interface Mission {
   id: number;
   type: string;
-  projet? : string;
+  projet?: string;
   durationDay?: number;
-  description?: string
+  description?: string;
 }

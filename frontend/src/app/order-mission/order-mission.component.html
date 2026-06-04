@@ -13,7 +13,7 @@
         }
     </div>
 
-    <!-- Formulaire affiché uniquement si showForm est true -->
+    <!-- Formulaire d'ajout, affiché uniquement si showForm est true -->
     @if (showForm()) {
     <div class="mat-card">
         <form [formGroup]="missionForm" (ngSubmit)="onSubmit()">
@@ -43,6 +43,7 @@
     </div>
     }
 
+    <!-- Tableau des missions proposées -->
     <div class="mat-card table-mission">
         <table mat-table [dataSource]="missions()" class="mat-elevation-z8">
             <ng-container matColumnDef="type">
@@ -65,8 +66,11 @@
                 <td mat-cell *matCellDef="let mission"> {{mission.description}} </td>
             </ng-container>
 
-            <ng-container>
-                <td><button (click)="openDialog()">Ouvrir</button></td>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let mission" class="flex"><button (click)="openDialog()">Ouvrir</button>
+                    <button (click)="deleteMission(mission.id)"><mat-icon>delete_forever</mat-icon></button>
+                </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
