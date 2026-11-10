@@ -2,14 +2,14 @@ import { Component, inject, signal } from '@angular/core';
 import { Mission } from '../model/mission';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { MissionService } from '../service/mission.service';
 import { MatTable, MatTableModule } from "@angular/material/table";
 import { AuthService } from '../service/auth.service';
 
 @Component({
     selector: 'app-order-mission',
-    imports: [MatCardModule, ReactiveFormsModule, CommonModule, MatTable, MatTableModule],
+    imports: [MatCardModule, ReactiveFormsModule, MatTable, MatTableModule],
     templateUrl: './order-mission.component.html',
     styleUrl: './order-mission.component.css',
     standalone : true

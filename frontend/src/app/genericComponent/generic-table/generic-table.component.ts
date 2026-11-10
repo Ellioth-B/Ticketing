@@ -1,10 +1,10 @@
 import { Component, Input, Signal } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-generic-table',
-    imports: [CommonModule, MatTableModule],
+    imports: [MatTableModule],
     templateUrl: './generic-table.component.html',
     styleUrl: './generic-table.component.css'
 })
