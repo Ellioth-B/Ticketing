@@ -8,6 +8,7 @@
 # and https://eslint.org
 
 
+
 name: ESLint
 
 on:
@@ -35,28 +36,23 @@ jobs:
           npm install eslint@8.10.0
           npm install @microsoft/eslint-formatter-sarif@3.1.0
 
-      
       - name: Run ESLint
         env:
           SARIF_ESLINT_IGNORE_SUPPRESSED: "true"
         run: |
-          npx eslint . --config .eslintrc.js --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif
+          npx eslint . --config eslint.config.mjs --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif
         continue-on-error: true
 
       - name: Check SARIF file
         if: always()
         run: |
-          Write-Host "Current directory:"
-          Get-Location
-
-          Write-Host "Files in current directory:"
-          Get-ChildItem
-
           Write-Host "Checking SARIF file:"
-          Test-Path eslint-results.sarif
-
           if (Test-Path eslint-results.sarif) {
+            Write-Host "SARIF file exists"
             Get-Item eslint-results.sarif
+          } else {
+            Write-Host "SARIF file does not exist"
+            exit 1
           }
 
       - name: Upload analysis results to GitHub
