@@ -6,13 +6,14 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MissionService } from '../service/mission.service';
 import { MatTable, MatTableModule } from "@angular/material/table";
 import { AuthService } from '../service/auth.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-order-mission',
-    imports: [MatCardModule, ReactiveFormsModule, MatTable, MatTableModule],
-    templateUrl: './order-mission.component.html',
-    styleUrl: './order-mission.component.css',
-    standalone : true
+  selector: 'app-order-mission',
+  standalone: true,
+  imports: [MatCardModule, ReactiveFormsModule, CommonModule, MatTable, MatTableModule, MatIcon],
+  templateUrl: './order-mission.component.html',
+  styleUrl: './order-mission.component.css'
 })
 export class OrderMissionComponent {
   // Signal pour incrémentation d'un compteur
@@ -27,7 +28,7 @@ export class OrderMissionComponent {
     durationDay: [0],
     description: ['']
   });
-  displayedColumns = ['type', 'projet', 'durationDay', 'description'];
+  displayedColumns = ['type', 'projet', 'durationDay', 'description', 'actions'];
   
   // Service injected
   auth = inject(AuthService)
@@ -64,6 +65,13 @@ export class OrderMissionComponent {
     }
   }
 
+  // Supprime une mission et update le Signal
+  deleteMission(id: number) {
+    this.missionService.deleteMission(id).subscribe(() => {
+      this.missions.update(missions => missions.filter(m => m.id !== id)) // On garde toutes les missions où l’id est différent de celui que j'ai supprimer
+    });
+  }
+
   //TODO : Ouverture d'une pop-up sur la page pour afficher le détail du ticket avec un bouton "Accepter la mission" qui ajoute la mission dans nos mission en cours.
   openDialog() {
 
@@ -89,5 +97,4 @@ export class OrderMissionComponent {
   // clear() {
   //   this.items.set([]);
   // }
-
 }
