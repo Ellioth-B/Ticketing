@@ -4,11 +4,10 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 
 @Component({
-  selector: 'app-top-bar',
-  standalone: true,
-  imports: [RouterLink, CommonModule],
-  templateUrl: './top-bar.component.html',
-  styleUrls: ['./top-bar.component.css']
+    selector: 'app-top-bar',
+    imports: [RouterLink, CommonModule],
+    templateUrl: './top-bar.component.html',
+    styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent {
   auth = inject(AuthService)

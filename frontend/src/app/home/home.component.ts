@@ -4,11 +4,10 @@ import { GenericTableComponent } from '../genericComponent/generic-table/generic
 import { UserStats } from '../model/user-stats';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [MatCardModule, GenericTableComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    imports: [MatCardModule, GenericTableComponent],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
 export class HomeComponent {
 

@@ -8,11 +8,11 @@ import { MatTable, MatTableModule } from "@angular/material/table";
 import { AuthService } from '../service/auth.service';
 
 @Component({
-  selector: 'app-order-mission',
-  standalone: true,
-  imports: [MatCardModule, ReactiveFormsModule, CommonModule, MatTable, MatTableModule],
-  templateUrl: './order-mission.component.html',
-  styleUrl: './order-mission.component.css'
+    selector: 'app-order-mission',
+    imports: [MatCardModule, ReactiveFormsModule, CommonModule, MatTable, MatTableModule],
+    templateUrl: './order-mission.component.html',
+    styleUrl: './order-mission.component.css',
+    standalone : true
 })
 export class OrderMissionComponent {
   // Signal pour incrémentation d'un compteur
