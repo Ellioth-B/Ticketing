@@ -9,4 +9,7 @@ router.post('/postMission', missionController);
 // GET /mission/getMission
 router.get('/getMission', missionController);
 
+// DELETE /mission/deleteMission
+router.delete('/deleteMission/:id', missionController);
+
 module.exports = router;
