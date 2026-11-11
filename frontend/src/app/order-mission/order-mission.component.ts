@@ -1,18 +1,19 @@
 import { Component, inject, signal } from '@angular/core';
 import { Mission } from '../model/mission';
 import { MatCardModule } from '@angular/material/card';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { form, FormField, required } from '@angular/forms/signals';
 
 import { MissionService } from '../service/mission.service';
 import { MatTable, MatTableModule } from "@angular/material/table";
 import { AuthService } from '../service/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'app-order-mission',
-    imports: [MatCardModule, ReactiveFormsModule, MatTable, MatTableModule],
-    templateUrl: './order-mission.component.html',
-    styleUrl: './order-mission.component.css',
-    standalone : true
+  standalone: true,
+  selector: 'app-order-mission',
+  imports: [FormsModule, FormField, MatCardModule, MatTable, MatTableModule],
+  templateUrl: './order-mission.component.html',
+  styleUrl: './order-mission.component.css',
 })
 export class OrderMissionComponent {
   // Signal pour incrémentation d'un compteur
@@ -21,18 +22,22 @@ export class OrderMissionComponent {
   showForm = signal(false);
   // Signal qui contient le tableau des missions
   missions = signal<Mission[]>([]);
-  missionForm = this.formbuilder.group({
-    type: ['', Validators.required],
-    projet: [''],
-    durationDay: [0],
-    description: ['']
+  missionModel = signal({
+    type: '',
+    projet: '',
+    durationDay: 0,
+    description: ''
+  });
+  // Création du formulaire et validation si "type" est saisi
+  missionForm = form(this.missionModel, (path) => {
+    required(path.type);
   });
   displayedColumns = ['type', 'projet', 'durationDay', 'description'];
-  
+
   // Service injected
   auth = inject(AuthService)
 
-  constructor(private formbuilder: FormBuilder, private missionService: MissionService) { }
+  constructor(private missionService: MissionService) { }
 
   ngOnInit() {
     // Charger toutes les missions au démarrage
@@ -47,20 +52,20 @@ export class OrderMissionComponent {
   }
 
   onSubmit() {
-    if (this.missionForm.valid) {
-      const newMission = this.missionForm.value as Mission;
+    if (this.missionForm().valid()) {
+      const newMission = this.missionModel() as Mission;
 
       this.missionService.postMission(newMission).subscribe({
         next: (res) => {
           this.missions.update(prev => [...prev, res]);
-          this.missionForm.reset();
+          this.missionForm().reset();
           console.log('✅ User saved:', res);
         },
         error: err => console.error('❌ Error:', err)
       })
     } else {
       console.log('❌ Erreur dans le formulaire')
-      this.missionForm.markAllAsTouched();
+      this.missionForm().markAsTouched();
     }
   }
 

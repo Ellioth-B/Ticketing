@@ -16,22 +16,22 @@
   <!-- Formulaire affiché uniquement si showForm est true -->
   @if (showForm()) {
     <div class="mat-card">
-      <form [formGroup]="missionForm" (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit()">
         <div>
           <label>Type* :</label>
-          <input formControlName="type" type="type" placeholder="Fix, Ajout, UX/UI..." />
+          <input [formField]="missionForm.type" type="type" placeholder="Fix, Ajout, UX/UI..." />
         </div>
         <div>
           <label>Projet :</label>
-          <input formControlName="projet" type="projet" placeholder="Phenix, Vision 40..." />
+          <input [formField]="missionForm.projet" type="projet" placeholder="Phenix, Vision 40..." />
         </div>
         <div>
           <label>Durée estimé :</label>
-          <input formControlName="durationDay" type="number" placeholder="0, 33, 999..." />
+          <input [formField]="missionForm.durationDay" type="number" placeholder="0, 33, 999..." />
         </div>
         <div>
           <label>Description brève :</label>
-          <input formControlName="description" type="textarea" placeholder="Ajout d'un bouton pour..." />
+          <input [formField]="missionForm.description" type="textarea" placeholder="Ajout d'un bouton pour..." />
         </div>
         <button type="submit">Soumettre</button>
       </form>
