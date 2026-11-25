@@ -7,11 +7,16 @@ import { Mission } from "../model/mission";
 export class MissionService {
   private apiUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Récupérer toutes les missions
   getMissions(): Observable<Mission[]> {
     return this.http.get<Mission[]>(`${this.apiUrl}/mission/getMission`);
+  }
+
+  // Récupérer une mission
+  getMissionsById(id: number): Observable<Mission> {
+    return this.http.get<Mission>(`${this.apiUrl}/mission/getMission/${id}`);
   }
 
   // Ajouter une mission

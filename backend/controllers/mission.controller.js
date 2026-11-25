@@ -29,6 +29,18 @@ router.get('/getMission', async (req, res) => {
   }
 });
 
+router.get('/getMissionById/:id', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const result = await pool.query('SELECT * FROM mission ORDER WHERE id = ($1)', [id]);
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erreur lors de la récupération');
+  }
+});
+
 router.delete('/deleteMission/:id', async (req, res) => {
   const id = req.params.id;
 

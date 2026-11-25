@@ -9,6 +9,9 @@ router.post('/postMission', missionController);
 // GET /mission/getMission
 router.get('/getMission', missionController);
 
+// GET /mission/getMissionById
+router.get('/getMission/:id', missionController);
+
 // DELETE /mission/deleteMission
 router.delete('/deleteMission/:id', missionController);
 
