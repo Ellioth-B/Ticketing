@@ -5,14 +5,18 @@ import { form, FormField, required } from '@angular/forms/signals';
 
 import { MissionService } from '../service/mission.service';
 import { MatTable, MatTableModule } from "@angular/material/table";
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { AuthService } from '../service/auth.service';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon'
+import { DialogOrderComponent } from '../Dialog/dialog-order/dialog-order.component';
+import { SlicePipe } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-order-mission',
-  imports: [FormsModule, FormField, MatCardModule, MatTable, MatTableModule, MatIcon],
+  imports: [FormsModule, FormField, MatCardModule, MatTable, MatTableModule, MatIcon, MatButtonModule, SlicePipe],
   templateUrl: './order-mission.component.html',
   styleUrl: './order-mission.component.css',
 })
@@ -26,17 +30,30 @@ export class OrderMissionComponent {
   missionModel = signal({
     type: '',
     projet: '',
-    durationDay: 0,
+    durationday: 0,
     description: ''
   });
   // Création du formulaire et validation si "type" est saisi
   missionForm = form(this.missionModel, (path) => {
     required(path.type);
   });
-  displayedColumns = ['type', 'projet', 'durationDay', 'description', 'actions'];
+  displayedColumns = ['type', 'projet', 'durationday', 'description', 'actions'];
 
   // Service injected
   auth = inject(AuthService)
+
+  //Ouverture d'une pop-up sur la page pour afficher le détail du ticket avec un bouton
+  readonly dialog = inject(MatDialog);
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, mission: Mission): void {
+    this.dialog.open(DialogOrderComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        mission: mission
+      }
+    });
+  }
 
   constructor(private missionService: MissionService) { }
 
@@ -77,10 +94,6 @@ export class OrderMissionComponent {
     });
   }
 
-  //TODO : Ouverture d'une pop-up sur la page pour afficher le détail du ticket avec un bouton "Accepter la mission" qui ajoute la mission dans nos mission en cours.
-  openDialog() {
-
-  }
 
 
   // Entrainement Signal

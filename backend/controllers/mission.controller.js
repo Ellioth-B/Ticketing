@@ -5,12 +5,12 @@ const router = express.Router();
 const pool = require('../db');
 
 router.post('/postMission', async (req, res) => {
-  const { type, projet, durationDay, description } = req.body;
+  const { type, projet, durationday, description } = req.body;
 
   try {
     const result = await pool.query(
       'INSERT INTO mission (type, projet, durationday, description) VALUES ($1, $2, $3, $4) RETURNING *',
-      [type, projet, durationDay, description]
+      [type, projet, durationday, description]
     );
     res.json(result.rows[0]);
   } catch (err) {
@@ -22,6 +22,18 @@ router.post('/postMission', async (req, res) => {
 router.get('/getMission', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM mission ORDER BY id ASC');
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erreur lors de la récupération');
+  }
+});
+
+router.get('/getMissionById/:id', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const result = await pool.query('SELECT * FROM mission ORDER WHERE id = ($1)', [id]);
     res.json(result.rows);
   } catch (err) {
     console.error(err);
