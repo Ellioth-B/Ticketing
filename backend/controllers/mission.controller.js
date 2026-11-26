@@ -5,12 +5,12 @@ const router = express.Router();
 const pool = require('../db');
 
 router.post('/postMission', async (req, res) => {
-  const { type, projet, durationDay, description } = req.body;
+  const { type, projet, durationday, description } = req.body;
 
   try {
     const result = await pool.query(
       'INSERT INTO mission (type, projet, durationday, description) VALUES ($1, $2, $3, $4) RETURNING *',
-      [type, projet, durationDay, description]
+      [type, projet, durationday, description]
     );
     res.json(result.rows[0]);
   } catch (err) {

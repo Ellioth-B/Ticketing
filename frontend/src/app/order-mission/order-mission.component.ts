@@ -11,11 +11,12 @@ import { AuthService } from '../service/auth.service';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon'
 import { DialogOrderComponent } from '../Dialog/dialog-order/dialog-order.component';
+import { SlicePipe } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-order-mission',
-  imports: [FormsModule, FormField, MatCardModule, MatTable, MatTableModule, MatIcon, MatButtonModule],
+  imports: [FormsModule, FormField, MatCardModule, MatTable, MatTableModule, MatIcon, MatButtonModule, SlicePipe],
   templateUrl: './order-mission.component.html',
   styleUrl: './order-mission.component.css',
 })
@@ -29,14 +30,14 @@ export class OrderMissionComponent {
   missionModel = signal({
     type: '',
     projet: '',
-    durationDay: 0,
+    durationday: 0,
     description: ''
   });
   // Création du formulaire et validation si "type" est saisi
   missionForm = form(this.missionModel, (path) => {
     required(path.type);
   });
-  displayedColumns = ['type', 'projet', 'durationDay', 'description', 'actions'];
+  displayedColumns = ['type', 'projet', 'durationday', 'description', 'actions'];
 
   // Service injected
   auth = inject(AuthService)

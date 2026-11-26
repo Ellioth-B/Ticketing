@@ -31,7 +31,7 @@
     </div>
     <div>
       <label>Durée estimé :</label>
-      <input [formField]="missionForm.durationDay" type="number" placeholder="0, 33, 999..." />
+      <input [formField]="missionForm.durationday" type="number" placeholder="0, 33, 999..." />
     </div>
     <div>
       <label>Description brève :</label>
@@ -55,14 +55,14 @@
       <td mat-cell *matCellDef="let mission"> {{mission.projet}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="durationDay">
+    <ng-container matColumnDef="durationday">
       <th mat-header-cell *matHeaderCellDef> Durée (jours) </th>
       <td mat-cell *matCellDef="let mission"> {{mission.durationday}} </td>
     </ng-container>
 
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef> Description </th>
-      <td mat-cell *matCellDef="let mission"> {{mission.description}} </td>
+      <td mat-cell *matCellDef="let mission"> {{mission.description | slice: 0:50 }}{{ mission.description?.length > 50 ? '...' : '' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
